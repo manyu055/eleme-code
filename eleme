@@ -1,0 +1,96 @@
+<!-- 饿了么2016实习，已知html，补全css和js
+要让一个label， 看起来像一个按钮， 需要给这个label设置display属性；
+要让checkbox的框不显示， 也应该设置 input的display属性
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>eleme</title>
+<style type="text/css">
+body,label,div,span{padding:0;margin:0;}
+.clearfix:after { content:"."; display:block; height:0; clear:both; visibility:hidden;}
+.clearfix{ zoom:1;}
+.cx{
+	width:360px;   
+	border:2px solid #DBDBDB;
+	border-radius:14px;
+	text-align:center;
+	font-size:24px;
+	margin:0 auto;
+	margin-top:40px;
+}
+label{
+	float:left;
+}
+input {
+	display:none;/*为了使input标签checkbox看起来像一个按钮*/
+}
+span{
+	width:120px;
+	color:#636363; /*选中的颜色改白色*/
+	display:block;
+	 padding:14px 0;
+}
+label:nth-child(1) span{
+	border-radius:13px 0 0 13px; 
+}
+label:nth-last-child(1) span{
+	border-radius:0 13px 13px 0;
+}
+</style>
+</head>
+<body>
+<div class="cx clearfix">
+	<label>
+		<input type="checkbox" value="1" checked>
+		<span>运行中</span>
+	</label>
+	<label>
+		<input type="checkbox" value="2" checked>
+		<span>等待中</span>
+	</label>
+	<label>
+		<input type="checkbox" value="3">
+		<span>已完成</span>
+	</label>
+</div>
+<script type="text/javascript">
+window.onload = function () {
+	// 初始化span状态，与checked一致
+	var span = document.getElementsByTagName("span");
+	span[0].status = 1;
+	span[1].status = 1;
+	span[2].status = 0;
+
+	for(var i=0;i<span.length;i++){
+		if(span[i].status){
+			span[i].style.backgroundColor = "#1EB6F8";
+			span[i].style.color="#fff";
+		}
+	}
+
+	// 给父元素添加监听器点击时发生改变
+	document.getElementsByClassName("cx")[0].addEventListener("click",function(e) {
+					e = e || window.event; 
+					var ele = e.target || e.srcElement; // e.target是被点击的元素 
+					if(ele) { 
+						if(e.target.nodeName == "SPAN"){ // 如果被点击的是span元素
+							if(e.target.status){
+								e.target.style.backgroundColor = "#fff";
+								e.target.style.color="#636363";
+								e.target.status=0;
+							}
+							else{
+								e.target.style.backgroundColor = "#1EB6F8";
+								e.target.style.color="#fff";
+								e.target.status = 1;
+				}	
+			}
+		}
+	});
+}
+	
+</script>
+</body>
+</html>
